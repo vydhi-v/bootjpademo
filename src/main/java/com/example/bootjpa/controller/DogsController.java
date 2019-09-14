@@ -32,8 +32,8 @@ public class DogsController {
     }
 
     @PostMapping
-    public void postDogs(@RequestBody DogDto dto) {
-        service.add(dto);
+    public void postDogs(@RequestBody DogDto dog) {
+        service.add(dog);
     }
 
     @GetMapping("/{id}")

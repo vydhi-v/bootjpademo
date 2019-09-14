@@ -1,12 +1,34 @@
 server:
   port: 8085
+  
 spring:
+  profiles:
+    active: local
+    
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
+okta:
+  oauth2:
+    issuer: https://dev-164193.oktapreview.com/oauth2/default
+    client-id: 0oanfv2pxqhKziDNf0h7
+    client-secret: bRt34-fdJd7YXeYEWTyjNxMsl3Nedmjn3-Pi7Xtb
+    roles-claim: groups
+    scopes: openid      
+---  
+spring:
+  profiles: local  
   datasource:
     url: jdbc:mysql://localhost:3306/bootjpa
     username: root
     password: password
     driver-class-name: "com.mysql.jdbc.Driver"
-  jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    hibernate:
-      ddl-auto: update
+---
+spring:
+  profiles: remote     
+  datasource:
+    url: jdbc:mysql://database-1.cvjtnk6zxahm.us-east-1.rds.amazonaws.com/bootjpa
+    username: admin
+    password: rootpassword
+    driver-class-name: "com.mysql.jdbc.Driver"

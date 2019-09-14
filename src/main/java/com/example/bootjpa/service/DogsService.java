@@ -17,8 +17,8 @@ public class DogsService {
     @Autowired 
     DogsRepository repository;
 
-    public void add(DogDto dto) {
-        repository.save(toEntity(dto));
+    public void add(DogDto dog) {
+        repository.save(toEntity(dog));
     }
 
     public void delete(long id) {
