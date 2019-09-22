@@ -1,21 +1,23 @@
 server:
   port: 8085
-  
-spring:
-  profiles:
-    active: local
-    
+spring:  
+  main:
+    allow-bean-definition-overriding: true     
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: update
+  profiles:
+    active: local    
 okta:
   oauth2:
     issuer: https://dev-164193.oktapreview.com/oauth2/default
     client-id: 0oanfv2pxqhKziDNf0h7
     client-secret: bRt34-fdJd7YXeYEWTyjNxMsl3Nedmjn3-Pi7Xtb
     roles-claim: groups
-    scopes: openid      
+    scopes:
+    - openid   
+    - profile
 ---  
 spring:
   profiles: local  

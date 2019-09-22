@@ -3,6 +3,7 @@ package com.example.bootjpa.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,16 +32,17 @@ public class DogsController {
         return service.getDogs();
     }
 
-    @PostMapping
-    public void postDogs(@RequestBody DogDto dog) {
-        service.add(dog);
-    }
-
     @GetMapping("/{id}")
     public Dog getById(@PathVariable(required = true) long id) throws DogNotFoundException {
         return service.getDogById(id);
     }
-
+    
+    @PreAuthorize("#oauth2.hasScope('profile')")
+    @PostMapping
+    public void postDogs(@RequestBody DogDto dog) {
+        service.add(dog);
+    }
+    @PreAuthorize("#oauth2.hasScope('profile')")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable(required = true) long id) {
         service.delete(id);
